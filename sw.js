@@ -1,1 +1,22 @@
-const C='my-money-v1';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./','./index.html','./manifest.json','./icon.svg']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+const C = 'my-money-v2';
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(C).then(cache =>
+      cache.addAll([
+        './',
+        './index.html',
+        './manifest.json',
+        './icon.svg'
+      ])
+    )
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response =>
+      response || fetch(event.request)
+    )
+  );
+});
